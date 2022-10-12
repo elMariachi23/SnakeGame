@@ -64,7 +64,9 @@ class GameSurface:
         score = 'Съедено: {} гр, Скорость: {}fps'.format(str(self.score), str(self.game_speed))
         self.screen.blit(self.score_text.render(score, 1,
                                                 color_mapper(self.conf.get('GAME', 'info_text_color'))),
-                                               (10, 10))
+                                               (10, self.height - 20))
+        pygame.draw.line(self.screen, color_mapper(self.conf.get('GAME', 'info_text_color')),
+                         (0, self.height - 30), (self.width, self.height - 30), 3)
 
     def game_over(self):
         """
