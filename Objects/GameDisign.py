@@ -75,7 +75,7 @@ class GameSurface:
         score = 'Счет: {}'.format(self.score)
         self.screen.blit(self.game_over_text.render(text, 1,
                                                     color_mapper(self.conf.get('GAME', 'info_text_color'))),
-                         (80, self.height // 2))
+                         (40, self.height // 2))
         self.screen.blit(self.score_text.render(score, 1,
                                                 color_mapper('green')),
                          ((self.width // 2) - 40, (self.height // 2) + 40))

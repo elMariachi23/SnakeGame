@@ -19,7 +19,7 @@ class Snake:
         self.snake_color = color_mapper(self.conf.get('SNAKE', 'snake_color'))
         self.head_pos = [random.randrange(10, self.width - 20, 10),
                          random.randrange(10, self.height - 20, 10)]
-        self.snake_body = [[self.head_pos[0], self.head_pos[1]]]
+        self.snake_body = [[self.head_pos[0], self.head_pos[1], 0]]
         self.upgraded_snake = False
         self.been_through_the_wall = False
         self.last_direction = "RIGHT"
@@ -90,28 +90,23 @@ class Snake:
         :return: Результат успешности потребления еды
         """
         feeded = False
-        self.snake_body.insert(0, list(self.head_pos))
-        head = True
+        # print(self.snake_body)
+        self.snake_body.insert(0, [self.head_pos[0], self.head_pos[1], 0])
         for body in self.snake_body:
-            if body[0] == food_place[0] and body[1] == food_place[1]:
-                pygame.draw.circle(screen, color_mapper('blue'), (body[0], body[1]), 6)
+            if body[0] == food_place[0] and body[1] == food_place[1] or body[-1] == 1:
+                pygame.draw.circle(screen, self.snake_color, (body[0], body[1]), 9)
             else:
                 pygame.draw.circle(screen, self.snake_color, (body[0], body[1]), 6)
 
         if food_place:
-            if self.head_pos[0] != food_place[0]:
-                self.snake_body.pop()
-                # pass
-            elif self.head_pos[1] != food_place[1]:
-                self.snake_body.pop()
-                # pass
-            else:
+            if self.head_pos[0] == food_place[0] and self.head_pos[1] == food_place[1]:
                 # print('Поела')
                 feeded = True
+                self.snake_body[0][-1] = 1
+            else:
+                self.snake_body.pop()
         else:
             self.snake_body.pop()
-            # pass
-
         self.snake_rules()
         return feeded
 
@@ -127,8 +122,6 @@ class Snake:
                 self.been_through_the_wall = True
             else:
                 self.dead = True
-            # self.direction = 'DOWN'
-            # pass
         elif self.head_pos[0] <= 0:
             # print('Столкновение с лева')
             if self.upgraded_snake:
@@ -136,8 +129,6 @@ class Snake:
                 self.been_through_the_wall = True
             else:
                 self.dead = True
-            # self.direction = 'DOWN'
-            # pass
         elif self.head_pos[1] >= self.height:
             # print('Столкновение с низу')
             if self.upgraded_snake:
@@ -145,8 +136,6 @@ class Snake:
                 self.been_through_the_wall = True
             else:
                 self.dead = True
-            # self.direction = 'RIGHT'
-            # pass
         elif self.head_pos[1] <= 0:
             # print('Столкновение с верху')
             if self.upgraded_snake:
@@ -154,8 +143,6 @@ class Snake:
                 self.been_through_the_wall = True
             else:
                 self.dead = True
-            # self.direction = 'RIGHT'
-            # pass
         else:
             pass
 
