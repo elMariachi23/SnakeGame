@@ -135,4 +135,6 @@ class GameSurface:
             elif action.type == pygame.MOUSEBUTTONDOWN:
                 # print('CLICK: {}'.format(pygame.mouse.get_pos()))
                 pass
+            else:
+                pass
         return change_direction

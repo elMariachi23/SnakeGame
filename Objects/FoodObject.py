@@ -16,7 +16,7 @@ class SnakeFood:
         self.chili = pygame.image.load('media/chili.png')
         self.food_color = color_mapper(self.conf.get('FOOD', 'food_color'))
         self.width = int(self.conf.get('GAME', 'resolution').split('x')[0])
-        self.height = int(self.conf.get('GAME', 'resolution').split('x')[1])
+        self.height = int(self.conf.get('GAME', 'resolution').split('x')[1]) - 30
         self.food_place = None
         self.spaces = list()
         for x in range(1, self.width // 10):
@@ -57,10 +57,6 @@ class SnakeFood:
         :param chili: флаг определения необходимости отобразить перец
         :return:
         """
-        # pygame.draw.rect(place, self.food_color,
-        #                  pygame.rect.Rect(self.food_place[0] - 5,
-        #                                   self.food_place[1] - 5,
-        #                                   10, 10))
         food = self.apple if not chili else self.chili
         place.blit(food, (self.food_place[0] - 10, self.food_place[1] - 10))
 

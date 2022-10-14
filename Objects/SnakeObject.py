@@ -15,7 +15,7 @@ class Snake:
         """
         self.conf = self.config()
         self.width = int(self.conf.get('GAME', 'resolution').split('x')[0])
-        self.height = int(self.conf.get('GAME', 'resolution').split('x')[1])
+        self.height = int(self.conf.get('GAME', 'resolution').split('x')[1]) - 30
         self.snake_color = color_mapper(self.conf.get('SNAKE', 'snake_color'))
         self.head_pos = [random.randrange(10, self.width - 20, 10),
                          random.randrange(10, self.height - 20, 10)]
@@ -90,6 +90,7 @@ class Snake:
         :return: Результат успешности потребления еды
         """
         feeded = False
+        self.snake_rules()
         # print(self.snake_body)
         self.snake_body.insert(0, [self.head_pos[0], self.head_pos[1], 0])
         for body in self.snake_body:
@@ -107,7 +108,7 @@ class Snake:
                 self.snake_body.pop()
         else:
             self.snake_body.pop()
-        self.snake_rules()
+        # print(self.snake_body)
         return feeded
 
     def snake_rules(self):
@@ -132,7 +133,7 @@ class Snake:
         elif self.head_pos[1] >= self.height:
             # print('Столкновение с низу')
             if self.upgraded_snake:
-                self.head_pos[1] -= (self.height - 10)
+                self.head_pos[1] = 10
                 self.been_through_the_wall = True
             else:
                 self.dead = True
