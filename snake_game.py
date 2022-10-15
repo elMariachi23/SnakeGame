@@ -39,7 +39,7 @@ def game_play():
                         if snake.upgraded_snake:
                             game.game_speed = 10
                             snake.upgraded_snake = False
-                            snake.snake_color = color_mapper(snake.snake_color)
+                            snake.snake_color = snake.default_snake_color
                     target = meat.empty_spaces(snake.snake_body)
                     meat.food_place = target
                     special_food = random.choice([True, False, False, False])

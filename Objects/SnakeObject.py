@@ -16,7 +16,8 @@ class Snake:
         self.conf = self.config()
         self.width = int(self.conf.get('GAME', 'resolution').split('x')[0])
         self.height = int(self.conf.get('GAME', 'resolution').split('x')[1]) - 30
-        self.snake_color = color_mapper(self.conf.get('SNAKE', 'snake_color'))
+        self.default_snake_color = color_mapper(self.conf.get('SNAKE', 'snake_color'))
+        self.snake_color = self.default_snake_color
         self.head_pos = [random.randrange(10, self.width - 20, 10),
                          random.randrange(10, self.height - 20, 10)]
         self.snake_body = [[self.head_pos[0], self.head_pos[1], 0]]
