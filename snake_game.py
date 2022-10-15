@@ -1,5 +1,7 @@
 import random
 
+import pygame.event
+
 from Objects.GameDisign import GameSurface
 from Objects.SnakeObject import Snake
 from Objects.FoodObject import SnakeFood
@@ -16,7 +18,11 @@ def game_play():
         if new_direction == 'RERUN':
             game.__init__()
             snake.__init__()
-
+        elif new_direction == 'PAUSE':
+            while not game.controls():
+                game.play = False
+                game.pause = True
+                game.run()
         else:
             if game.play:
                 meat.food_color = meat.special_food(special_food)
@@ -24,7 +30,7 @@ def game_play():
                 snake.snake_direction(new_direction)
                 if snake.display_snake(game.screen, target):
                     if special_food:
-                        game.score += 5
+                        game.score += 1
                         game.game_speed += 5
                         snake.upgraded_snake = True
                         snake.snake_color = color_mapper('red')
@@ -33,7 +39,7 @@ def game_play():
                         if snake.upgraded_snake:
                             game.game_speed = 10
                             snake.upgraded_snake = False
-                            snake.snake_color = color_mapper('green')
+                            snake.snake_color = color_mapper(snake.snake_color)
                     target = meat.empty_spaces(snake.snake_body)
                     meat.food_place = target
                     special_food = random.choice([True, False, False, False])

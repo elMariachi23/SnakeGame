@@ -18,6 +18,7 @@ class GameSurface:
         self.height = int(self.conf.get('GAME', 'resolution').split('x')[1])
         self.welcome = True
         self.play = False
+        self.pause = False
         pygame.init()
         pygame.mixer.init()  # для звука
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -50,6 +51,8 @@ class GameSurface:
             self.show_score()
         elif self.welcome:
             self.welcome_screen()
+        elif self.pause:
+            self.pause_screen()
         else:
             self.game_over()
         pygame.display.flip()
@@ -106,6 +109,22 @@ class GameSurface:
             self.welcome = False
             self.play = True
 
+    def pause_screen(self):
+        """
+        Экран паузы
+        :return:
+        """
+        pause_text = "Пауза"
+        info = 'Счет {}; Скорость {}'.format(self.score, self.game_speed)
+        pause_text = self.game_over_text.render(pause_text, 1, color_mapper(self.conf.get('GAME', 'info_text_color')))
+        info = self.score_text.render(info, 1, color_mapper(self.conf.get('GAME', 'info_text_color')))
+        continue_text = self.score_text.render('Чтобы продолжить нажмите любую клавишу или ESC для выхода', 1,
+                                               color_mapper(self.conf.get('GAME', 'info_text_color')))
+        self.screen.blit(pause_text, ((self.width // 2) - (pause_text.get_size()[0] // 2), self.height // 2))
+        self.screen.blit(info, ((self.width // 2) - (info.get_size()[0] // 2), (self.height // 2) + 40))
+        self.screen.blit(continue_text, ((self.width // 2) - (continue_text.get_size()[0] // 2),
+                                         (self.height // 2) + 60))
+
     @staticmethod
     def controls():
         """
@@ -129,6 +148,8 @@ class GameSurface:
                     sys.exit()
                 elif action.key == pygame.K_r:
                     change_direction = 'RERUN'
+                elif action.key == pygame.K_p:
+                    change_direction = 'PAUSE'
             elif action.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
