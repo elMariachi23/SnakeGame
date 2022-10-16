@@ -41,6 +41,7 @@ class SnakeFood:
         :param used_places: список использованных ячеек (занятых змеей)
         :return: Место для отображения еды
         """
+        used_places = [xy[:2] for xy in used_places]
         if len(self.spaces) <= len(used_places) - 1:
             print('Передоз')
             pygame.quit()
