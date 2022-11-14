@@ -1,7 +1,4 @@
 import random
-
-import pygame.event
-
 from Objects.GameDisign import GameSurface
 from Objects.SnakeObject import Snake
 from Objects.FoodObject import SnakeFood
@@ -43,7 +40,9 @@ def game_play():
                     target = meat.empty_spaces(snake.snake_body)
                     meat.food_place = target
                     special_food = random.choice([True, False, False, False])
-
+            else:
+                if snake.dead:
+                    game.pause = False
         game.run()
 
 
