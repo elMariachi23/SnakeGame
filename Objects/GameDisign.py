@@ -24,7 +24,8 @@ class GameSurface:
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("SNAKE")
         self.game_time = pygame.time.Clock()
-        self.score = 0
+        self.apple = 0
+        self.pepper = 0
         self.score_text = pygame.font.Font(None, 24)
         self.game_over_text = pygame.font.Font(None, 46)
         self.game_speed = int(self.conf.get('GAME', 'fps'))
@@ -64,7 +65,8 @@ class GameSurface:
         Отображения текста информации (Кол-во очков)
         :return:
         """
-        score = 'Съедено: {} гр, Скорость: {}fps'.format(str(self.score), str(self.game_speed))
+        score = 'Съедено: яблок {} и перцев {}, Скорость: {}fps'.format(str(self.apple), str(self.pepper),
+                                                                       str(self.game_speed))
         self.screen.blit(self.score_text.render(score, 1,
                                                 color_mapper(self.conf.get('GAME', 'info_text_color'))),
                                                (10, self.height - 20))
@@ -77,7 +79,7 @@ class GameSurface:
         :return:
         """
         text = 'Поражение :( Нажмите "R" для рестарта'
-        score = 'Счет: {}'.format(self.score)
+        score = 'Счет: {}'.format(str(self.apple + self.pepper))
         self.screen.blit(self.game_over_text.render(text, 1,
                                                     color_mapper(self.conf.get('GAME', 'info_text_color'))),
                          (40, self.height // 2))
@@ -115,7 +117,7 @@ class GameSurface:
         :return:
         """
         pause_text = "Пауза"
-        info = 'Счет {}; Скорость {}'.format(self.score, self.game_speed)
+        info = 'Счет {}; Скорость {}'.format(str(self.apple + self.pepper), self.game_speed)
         pause_text = self.game_over_text.render(pause_text, 1, color_mapper(self.conf.get('GAME', 'info_text_color')))
         info = self.score_text.render(info, 1, color_mapper(self.conf.get('GAME', 'info_text_color')))
         continue_text = self.score_text.render('Чтобы продолжить нажмите любую клавишу или ESC для выхода', 1,

@@ -27,12 +27,12 @@ def game_play():
                 snake.snake_direction(new_direction)
                 if snake.display_snake(game.screen, target):
                     if special_food:
-                        game.score += 1
+                        game.pepper += 1
                         game.game_speed += 5
                         snake.upgraded_snake = True
                         snake.snake_color = color_mapper('red')
                     else:
-                        game.score += 1
+                        game.apple += 1
                         if snake.upgraded_snake:
                             game.game_speed = 10
                             snake.upgraded_snake = False
