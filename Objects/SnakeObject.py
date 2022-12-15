@@ -1,8 +1,10 @@
-import random
 import configparser
 import os
-from Objects.color_mapper import color_mapper
+import random
+
 import pygame
+
+from Objects.color_mapper import color_mapper
 
 
 class Snake:

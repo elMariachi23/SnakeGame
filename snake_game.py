@@ -1,7 +1,8 @@
 import random
+
+from Objects.FoodObject import SnakeFood
 from Objects.GameDisign import GameSurface
 from Objects.SnakeObject import Snake
-from Objects.FoodObject import SnakeFood
 from Objects.color_mapper import color_mapper
 
 

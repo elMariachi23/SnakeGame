@@ -1,7 +1,9 @@
-import pygame
-import sys
-import os
 import configparser
+import os
+import sys
+
+import pygame
+
 from Objects.color_mapper import color_mapper
 
 
@@ -66,7 +68,7 @@ class GameSurface:
         :return:
         """
         score = 'Съедено: яблок {} и перцев {}, Скорость: {}fps'.format(str(self.apple), str(self.pepper),
-                                                                       str(self.game_speed))
+                                                                        str(self.game_speed))
         self.screen.blit(self.score_text.render(score, 1,
                                                 color_mapper(self.conf.get('GAME', 'info_text_color'))),
                                                (10, self.height - 20))

@@ -1,8 +1,10 @@
-import sys
-import pygame
-import random
-import os
 import configparser
+import os
+import random
+import sys
+
+import pygame
+
 from Objects.color_mapper import color_mapper
 
 
